@@ -5,6 +5,7 @@ __pycache__/
 *.pyd
 *.pyc
 *.cpython*
+*cpython-312*
 
 # Ignore virtual environment directories
 venv/
