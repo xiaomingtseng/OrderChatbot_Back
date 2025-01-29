@@ -11,12 +11,6 @@ class StoreRepository:
     def add_store(self, store):
         self.collection.insert_one(store.__dict__)
 
-    def add(self, store_data):
-        try:
-            self.collection.insert_one(store_data)
-        except DuplicateKeyError:
-            raise Exception("Store with this name already exists")
-
     def get_store(self, store_id):
         store_data = self.collection.find_one({'_id': ObjectId(store_id)})
         if store_data:
@@ -30,9 +24,6 @@ class StoreRepository:
     def remove_store(self, store_id):
         result = self.collection.delete_one({'_id': ObjectId(store_id)})
         return result.deleted_count > 0
-
-    def find_by_name(self, name):
-        return self.collection.find_one({'name': name})
 
     def update_store(self, store):
         result = self.collection.update_one(

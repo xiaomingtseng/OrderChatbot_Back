@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Test</title>
+</head>
+<body>
+    <h1>CORS Test</h1>
+    <button id="testGetButton">Test GET</button>
+    <button id="testPutButton">Test PUT</button>
+    <script>
+        document.getElementById('testGetButton').addEventListener('click', function() {
+            fetch('http://localhost:5000/stores/6797a05582022cf794f07735', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('testPutButton').addEventListener('click', function() {
+            fetch('http://localhost:5000/stores/6797a05582022cf794f07735', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: 'Updated Store Name' })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

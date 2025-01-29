@@ -32,6 +32,16 @@ class StoreService:
     def remove_store(self, store_id):
         return self.__store_repository.remove_store(store_id)
 
+    def update_store(self, store_id, store_data):
+        store = self.__store_repository.get_store(store_id)
+        if store:
+            store.name = store_data.get('name', store.name)
+            store.address = store_data.get('address', store.address)
+            store.menu_id = store_data.get('menu_id', store.menu_id)
+            self.__store_repository.update_store(store)
+            return True
+        return False
+
     def upload_menu_image(self, store_id, image_file):
         # Read the image file as binary data
         image_data = image_file.read()
