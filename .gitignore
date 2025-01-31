@@ -1,0 +1,21 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.cpython*
+*cpython-312*
+
+# Ignore virtual environment directories
+venv/
+env/
+.venv/
+.env/
+
+# Ignore other common files
+*.log
+*.sqlite3
+*.db
+.DS_Store
+*.swp

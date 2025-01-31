@@ -1,22 +1,21 @@
-import uuid
 from bson import ObjectId
 
 class Store:
-    def __init__(self, name='', address='', _id=None, items=None, menu_id=None):
-        self._id = _id if _id else ObjectId()  # 使用 MongoDB 自動生成的 _id
+    def __init__(self, name, description, location, menu_id=None, _id=None):
+        self._id = _id if _id else ObjectId()
         self.name = name
-        self.address = address
-        self.items = items if items is not None else []
-        self.menu_id = menu_id  # 添加 menu_id 字段
+        self.description = description
+        self.location = location
+        self.menu_id = menu_id
 
-    def add_item(self, item):
-        self.items.append(item)
-    
-    def get_store_info(self):
+    def to_dict(self):
         return {
-            '_id': str(self._id),  # 將 _id 轉換為字符串
+            '_id': str(self._id),
             'name': self.name,
-            'address': self.address,
-            'items': self.items,
-            'menu_id': self.menu_id  # 返回 menu_id
+            'description': self.description,
+            'location': self.location,
+            'menu_id': self.menu_id
         }
+
+    def __repr__(self):
+        return f"<Store(id={self._id}, name={self.name}, location={self.location}, menu_id={self.menu_id})>"
