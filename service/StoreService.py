@@ -5,7 +5,7 @@ from bson import ObjectId
 
 class StoreService:
     def __init__(self):
-        db = Database('mongodb://localhost:27017/', 'mydatabase')
+        db = Database('cluster0-shard-00-00.xfe7j.mongodb.net:27017', 'mydatabase')
         db.create_unique_index('stores', 'name')
         self.__store_repo = StoreRepository(db)
 

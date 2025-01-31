@@ -2,7 +2,7 @@ from pymongo import MongoClient, ASCENDING
 
 
 class Database:
-    def __init__(self, uri='mongodb://localhost:27017/', db_name='mydatabase'):
+    def __init__(self, uri='cluster0-shard-00-00.xfe7j.mongodb.net:27017', db_name='mydatabase'):
         self.client = MongoClient(uri)
         self.db = self.client[db_name]
 
