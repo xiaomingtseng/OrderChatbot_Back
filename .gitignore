@@ -19,3 +19,6 @@ env/
 *.db
 .DS_Store
 *.swp
+
+# .gitignore
+.env
