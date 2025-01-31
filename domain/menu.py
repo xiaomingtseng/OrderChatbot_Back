@@ -1,26 +1,23 @@
-from bson import ObjectId
-from domain.menu_item import MenuItem
-
+# Menu實體
 class Menu:
-    def __init__(self, name, items, store_id=None, _id=None):
-        self._id = _id if _id else ObjectId()
-        self.name = name
-        self.items = [MenuItem.from_dict(item) for item in items]  # items should be a list of MenuItem objects
+    def __init__(self, menu_id, image_id, store_id, menu_item_ids=None):
+        self.menu_id = menu_id
+        self.image_id = image_id
         self.store_id = store_id
+        self.menu_item_ids = []
+
+# MenuItem實體
+class MenuItem:
+    def __init__(self, _id, name, description, price):
+        self._id = _id
+        self.name = name
+        self.description = description
+        self.price = price
 
     def to_dict(self):
         return {
             '_id': str(self._id),
             'name': self.name,
-            'items': [item.to_dict() for item in self.items],
-            'store_id': self.store_id
+            'description': self.description,
+            'price': self.price
         }
-
-    @staticmethod
-    def from_dict(data):
-        return Menu(
-            name=data.get('name'),
-            items=[MenuItem.from_dict(item) for item in data.get('items', [])],
-            store_id=data.get('store_id'),
-            _id=ObjectId(data['_id']) if '_id' in data else None
-        )

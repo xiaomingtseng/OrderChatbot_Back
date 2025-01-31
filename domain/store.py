@@ -1,31 +1,21 @@
-import uuid
 from bson import ObjectId
 
 class Store:
-    def __init__(self, name, address, menu_id=None, _id=None):
+    def __init__(self, name, description, location, menu_id=None, _id=None):
         self._id = _id if _id else ObjectId()
         self.name = name
-        self.address = address
+        self.description = description
+        self.location = location
         self.menu_id = menu_id
-        self.menu_image_url = None
 
-    def add_item(self, item):
-        self.items.append(item)
-    
-    def get_store_info(self):
+    def to_dict(self):
         return {
             '_id': str(self._id),
             'name': self.name,
-            'address': self.address,
-            'menu_id': self.menu_id,
-            'menu_image_url': self.menu_image_url
+            'description': self.description,
+            'location': self.location,
+            'menu_id': self.menu_id
         }
 
-    @staticmethod
-    def from_dict(data):
-        return Store(
-            name=data.get('name'),
-            address=data.get('address'),
-            menu_id=data.get('menu_id'),
-            _id=ObjectId(data['_id']) if '_id' in data else None
-        )
+    def __repr__(self):
+        return f"<Store(id={self._id}, name={self.name}, location={self.location}, menu_id={self.menu_id})>"

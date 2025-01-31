@@ -1,7 +1,8 @@
 from pymongo import MongoClient, ASCENDING
 
+
 class Database:
-    def __init__(self, uri, db_name):
+    def __init__(self, uri='mongodb://localhost:27017/', db_name='mydatabase'):
         self.client = MongoClient(uri)
         self.db = self.client[db_name]
 
@@ -13,5 +14,5 @@ class Database:
         collection.create_index([(field_name, ASCENDING)], unique=True)
 
 # 使用範例
-db = Database('mongodb://localhost:27017/', 'mydatabase')
-collection = db.get_collection('mycollection')
+# db = Database()
+# collection = db.get_collection('mycollection')
