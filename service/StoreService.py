@@ -17,7 +17,7 @@ class StoreService:
             name=store_data['name'],
             description=store_data['description'],
             location=store_data['location'],
-            menu_id=""  # Set menu_id as empty
+            menu_id=store_data['menu_id'] if 'menu_id' in store_data else ""
         )
         self.__store_repo.add_store(store)
         return store.__repr__()
