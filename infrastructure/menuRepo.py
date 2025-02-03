@@ -36,7 +36,7 @@ class MenuRepository:
             '_id': ObjectId(),
             'name': menu_item.name,
             'price': menu_item.price,
-            'category': menu_item.category
+            'description': menu_item.description
         }
         self.menu_item_collection.insert_one(menu_item_data)
         return menu_item_data
@@ -46,7 +46,7 @@ class MenuRepository:
         if menu_item_data:
             return MenuItem(
                 str(menu_item_data['_id']), menu_item_data['name'], menu_item_data['price'],
-                menu_item_data['category']
+                menu_item_data['description']
             )
         return None
 
