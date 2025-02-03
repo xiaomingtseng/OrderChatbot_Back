@@ -120,7 +120,7 @@ def delete_menu(menu_id):
 @app.route('/menu_items', methods=['POST'])
 def create_menu_item():
     data = request.json
-    menu_item = MenuItem(None, data['name'], data['price'], data['category'])
+    menu_item = MenuItem(None, data['name'], data['price'], data['description'])
     result = menu_service.create_menu_item(menu_item)
     result['_id'] = str(result['_id'])
     return jsonify(result), 201
