@@ -35,7 +35,7 @@ def handle_options():
         else:
             response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-        response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
+        response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,PATCH,POST,DELETE,OPTIONS'
         return response
 
 @app.after_request
@@ -46,7 +46,7 @@ def after_request(response):
     else:
         response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-    response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,PATCH,POST,DELETE,OPTIONS'
     return response
 
 @app.route('/')
@@ -111,6 +111,24 @@ def update_menu(menu_id):
         return jsonify({'message': 'Menu updated successfully'}), 200
     return jsonify({'error': 'Menu not found'}), 404
 
+@app.route('/menus/<menu_id>/add', methods=['PATCH'])
+def add_item_to_menu(menu_id):
+    data = request.json
+    menu_item_id = data['menu_item_id']
+    result = menu_service.add_menu_item_to_menu(menu_id, menu_item_id)
+    if result:
+        return jsonify({'message': 'Item added to menu successfully'}), 200
+    return jsonify({'error': 'Menu not found'}), 404
+
+@app.route('/menus/<menu_id>/remove', methods=['PATCH'])
+def remove_item_from_menu(menu_id):
+    data = request.json
+    menu_item_id = data['menu_item_id']
+    result = menu_service.remove_menu_item_from_menu(menu_id, menu_item_id)
+    if result:
+        return jsonify({'message': 'Item removed from menu successfully'}), 200
+    return jsonify({'error': 'Menu not found'}), 404
+
 @app.route('/menus/<menu_id>', methods=['DELETE'])
 def delete_menu(menu_id):
     result = menu_service.delete_menu(menu_id)
@@ -165,7 +183,7 @@ def get_cart(cart_id):
     except errors.InvalidId:
         return jsonify({'error': 'Invalid cart ID'}), 400
 
-@app.route('/cart/<cart_id>', methods=['PUT'])
+@app.route('/cart/<cart_id>', methods=['PATCH'])
 def update_cart(cart_id):
     try:
         data = request.json
@@ -175,6 +193,26 @@ def update_cart(cart_id):
         return jsonify({'error': 'Cart not found'}), 404
     except errors.InvalidId:
         return jsonify({'error': 'Invalid cart ID'}), 400
+
+@app.route('/cart/<cart_id>/add-item', methods=['PATCH'])
+def add_item_to_cart(cart_id):
+    data = request.json
+    menu_item_id = data['menu_item_id']
+    quantity = data['quantity']
+    features = data.get('features', [])
+    result = cart_service.add_item_to_cart(cart_id, menu_item_id, quantity, features)
+    if result:
+        return jsonify({'message': 'Item added to cart successfully'}), 200
+    return jsonify({'error': 'Failed to add item to cart'}), 400
+
+@app.route('/cart/<cart_id>/remove-item', methods=['PATCH'])
+def remove_item_from_cart(cart_id):
+    data = request.json
+    cart_item_id = data['cart_item_id']
+    result = cart_service.remove_item_from_cart(cart_id, cart_item_id)
+    if result:
+        return jsonify({'message': 'Item removed from cart successfully'}), 200
+    return jsonify({'error': 'Failed to remove item from cart'}), 400
 
 @app.route('/cart/<cart_id>', methods=['DELETE'])
 def delete_cart(cart_id):
