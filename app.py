@@ -64,7 +64,7 @@ def handle_stores():
         created_store = store_service.add_store(store_data)
         return jsonify(created_store), 201
 
-@app.route('/stores/<store_id>', methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
+@app.route('/stores/<store_id>', methods=['GET', 'DELETE', 'PUT', 'PATCH'], strict_slashes=False)
 def handle_store(store_id):
     if request.method == 'GET':
         store = store_service.get_store_by_id(ObjectId(store_id))
@@ -78,7 +78,7 @@ def handle_store(store_id):
             return jsonify({'status': 'Store deleted'}), 200
         else:
             return jsonify({'status': 'Store not found'}), 404
-    if request.method == 'PUT':
+    if request.method == 'PATCH':
         update_data = request.get_json()
         success = store_service.update_store(ObjectId(store_id), update_data)
         if success:
@@ -102,7 +102,7 @@ def get_menu(menu_id):
         return jsonify(menu_dict), 200
     return jsonify({'error': 'Menu not found'}), 404
 
-@app.route('/menus/<menu_id>', methods=['PUT'])
+@app.route('/menus/<menu_id>', methods=['PATCH'])
 def update_menu(menu_id):
     data = request.json
     result = menu_service.update_menu(menu_id, data)
@@ -133,7 +133,7 @@ def get_menu_item(menu_item_id):
         return jsonify(menu_item_dict), 200
     return jsonify({'error': 'Menu item not found'}), 404
 
-@app.route('/menu_items/<menu_item_id>', methods=['PUT'])
+@app.route('/menu_items/<menu_item_id>', methods=['PATCH'])
 def update_menu_item(menu_item_id):
     data = request.json
     result = menu_service.update_menu_item(menu_item_id, data)
