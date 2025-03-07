@@ -15,10 +15,11 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 CORS(app)
 
-store_service = StoreService()
+
 
 # Initialize database and repositories
 db = Database()
+store_service = StoreService(db)
 menu_repo = MenuRepository(db)
 menu_service = MenuService(menu_repo)
 cart_repo = CartReposiotry(db)
