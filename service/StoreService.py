@@ -4,10 +4,8 @@ from infrastructure.database import Database
 from bson import ObjectId
 
 class StoreService:
-    def __init__(self):
-        db = Database('mongodb://localhost:27017/', 'mydatabase')
-        db.create_unique_index('stores', 'name')
-        self.__store_repo = StoreRepository(db)
+    def __init__(self, storeRepo: StoreRepository):
+        self.__store_repo = storeRepo
 
     def add_store(self, store_data):
         if not store_data['name']:
