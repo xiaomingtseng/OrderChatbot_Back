@@ -6,7 +6,35 @@ https://orderchatbot-back.onrender.com
 [SRD]-[SDD]-[STD]
 ## Features
 
-## Tech
+## API
+### Stores
+- `GET /stores` - 獲取所有商店
+- `POST /stores` - 創建新商店
+- `GET /stores/<store_id>` - 根據 ID 獲取商店
+- `DELETE /stores/<store_id>` - 根據 ID 刪除商店
+- `PUT /stores/<store_id>` - 根據 ID 更新商店
+
+### Menus
+- `POST /menus` - 創建新菜單
+- `GET /menus/<menu_id>` - 根據 ID 獲取菜單
+- `PUT /menus/<menu_id>` - 根據 ID 更新菜單
+- `DELETE /menus/<menu_id>` - 根據 ID 刪除菜單
+
+### Menu Items
+- `POST /menu_items` - 創建新菜單項目
+- `GET /menu_items/<menu_item_id>` - 根據 ID 獲取菜單項目
+- `PUT /menu_items/<menu_item_id>` - 根據 ID 更新菜單項目
+- `DELETE /menu_items/<menu_item_id>` - 根據 ID 刪除菜單項目
+
+### Cart
+- `POST /cart` - 創建新購物車
+- `GET /cart/<cart_id>` - 根據 ID 獲取購物車
+- `PUT /cart/<cart_id>` - 根據 ID 更新購物車
+- `DELETE /cart/<cart_id>` - 根據 ID 刪除購物車
+
+### Cart Items
+- `GET /cart_item/<cart_item_id>` - 根據 ID 獲取購物車項目詳情
+- `POST /cart/<cart_id>/items` - 向購物車添加項目
 
 ## License
 
