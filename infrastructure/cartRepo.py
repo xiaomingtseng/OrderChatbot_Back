@@ -29,6 +29,15 @@ class CartReposiotry:
         if updated_cart_data:
             return Cart(str(updated_cart_data['_id']), updated_cart_data['items'], updated_cart_data['total'])
         return None
+    
+    def add_item_to_cart(self, cart_id: ObjectId, cart_item_id: ObjectId):
+        result = self.cart_collection.update_one({'_id': cart_id}, {'$push': {'items': cart_item_id}})
+        return result.modified_count > 0
+    
+    def delete_item_from_cart(self, cart_id: ObjectId, cart_item_id: ObjectId):
+        result = self.cart_collection.update_one({'_id': cart_id}, {'$pull': {'items': cart_item_id}})
+        return result.modified_count > 0
+    
     def delete_cart(self, cart_id: ObjectId):
         result = self.cart_collection.delete_one({'_id': ObjectId(cart_id)})
         return result.deleted_count > 0

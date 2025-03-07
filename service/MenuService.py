@@ -23,6 +23,12 @@ class MenuService:
 
     def get_menu_item(self, menu_item_id: str):
         return self.menu_repo.get_menu_item_by_id(ObjectId(menu_item_id))
+    
+    def add_menu_item_to_menu(self, menu_id: str, menu_item_id: str):
+        return self.menu_repo.add_item_to_menu(ObjectId(menu_id), ObjectId(menu_item_id))
+    
+    def remove_menu_item_from_menu(self, menu_id: str, menu_item_id: str):
+        return self.menu_repo.remove_item_from_menu(ObjectId(menu_id), ObjectId(menu_item_id))
 
     def update_menu_item(self, menu_item_id: str, update_data: dict):
         return self.menu_repo.update_menu_item(ObjectId(menu_item_id), update_data)

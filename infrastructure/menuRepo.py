@@ -23,6 +23,14 @@ class MenuRepository:
             return Menu(str(menu_data['_id']), menu_data['image_id'], menu_data['store_id'], menu_data['menu_item_ids'])
         return None
 
+    def add_item_to_menu(self, menu_id: ObjectId, menu_item_id: ObjectId):
+        result = self.menu_collection.update_one({'_id': ObjectId(menu_id)}, {'$push': {'menu_item_ids': menu_item_id}})
+        return result.modified_count > 0
+    
+    def remove_item_from_menu(self, menu_id: ObjectId, menu_item_id: ObjectId):
+        result = self.menu_collection.update_one({'_id': ObjectId(menu_id)}, {'$pull': {'menu_item_ids': menu_item_id}})
+        return result.modified_count > 0
+    
     def update_menu(self, menu_id: ObjectId, update_data: dict):
         result = self.menu_collection.update_one({'_id': ObjectId(menu_id)}, {'$set': update_data})
         return result.modified_count > 0

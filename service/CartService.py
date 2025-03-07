@@ -13,6 +13,12 @@ class CartService:
 
     def update_cart(self, cart_id: str, update_data: dict):
         return self.cart_repo.update_cart(ObjectId(cart_id), update_data)
+    
+    def add_item_to_cart(self, cart_id: str, cart_item_id: str):
+        return self.cart_repo.add_item_to_cart(ObjectId(cart_id), ObjectId(cart_item_id))
+    
+    def delete_item_from_cart(self, cart_id: str, cart_item_id: str):
+        return self.cart_repo.delete_item_from_cart(ObjectId(cart_id), ObjectId(cart_item_id))
 
     def delete_cart(self, cart_id: str):
         return self.cart_repo.delete_cart(ObjectId(cart_id))
