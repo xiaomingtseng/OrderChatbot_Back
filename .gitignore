@@ -12,7 +12,7 @@ venv/
 env/
 .venv/
 .env/
-
+.env
 # Ignore other common files
 *.log
 *.sqlite3
